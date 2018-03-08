@@ -1,0 +1,183 @@
+<div ng-controller="PLCtrl">
+
+  <style>
+    .tm1-ui-dbr {
+      text-align: right;
+    }
+    .tm1-ui-dbr input {
+      text-align: right;
+    }   
+    .criteria {
+      margin-top: 10px;
+    }
+    .consol {
+      font-weight: bold;
+    }
+  </style>
+
+  <h1>
+    <span style="float: left; width: 50px; "><i ng-if="$root.isLoading"  class="fa fa-cog fa-spin" ></i><i ng-if="!$root.isLoading" class="fa fa-cube"></i></span> P&L
+  </h1>
+  
+  <h3>Criteria</h3>
+  
+  <div class="row">
+  
+    <div class="col-md-3 criteria" >
+      <div>
+          <label>Version:</label>
+      </div>
+      <div>
+        <select class="form-control" ng-model="selections['Version']">
+          <option value="vs">vs</option>
+          <option value="1">Actual</option>
+          <option value="2">Budget</option>
+          <option value="3">Forecast</option>
+          <option value="Quota">Quota</option>
+          <option value="Last Year">Last Year</option>
+          <option value="Var %">Var %</option>
+          <option value="LY %">LY %</option>
+          <option value="[bad">[bad</option>
+          <option value="bad]">bad]</option>
+          <option value="[bad]">[bad]</option>
+          <option value="{bad}">{bad}</option>
+          <option value="{'Bad', "Element"!#%}">{'Bad', "Element"!#%}</option>
+          <option value="{'Baddes', /\ "Element"!#%}">{'Baddes', /\ "Element"!#%}</option>
+          <option value="{['Bad', "Element"!#%]}">{['Bad', "Element"!#%]}</option>
+          <option value="{['Baddes', /\ "Element"!#%]}">{['Baddes', /\ "Element"!#%]}</option>
+        </select>
+      </div>
+    </div>
+    <div class="col-md-3 criteria" >
+      <div>
+          <label>Year:</label>
+      </div>
+      <div>
+        <tm1-ui-subnm tm1-instance="dev" tm1-dimension="Year" tm1-subset="Default" tm1-default-element="2012" ng-model="selections['Year']"></tm1-ui-subnm>
+      </div>
+    </div>
+    <div class="col-md-3 criteria" >
+      <div>
+          <label>General Ledger Measure:</label>
+      </div>
+      <div>
+        <select class="form-control" ng-model="selections['General Ledger Measure']">
+          <option value="Comment">Comment</option>
+        </select>
+      </div>
+    </div>
+    <div class="col-md-3 criteria" >
+      <div>
+          <label>Currency:</label>
+      </div>
+      <div>
+        <tm1-ui-subnm tm1-instance="dev" tm1-dimension="Currency" tm1-subset="Default" tm1-default-element="Local" ng-model="selections['Currency']"></tm1-ui-subnm>
+      </div>
+    </div>
+    <div class="col-md-3 criteria" >
+      <div>
+          <label>Region:</label>
+      </div>
+      <div>
+        <select class="form-control" ng-model="selections['Region']">
+          <option value="1">Total Europe</option>
+          <option value="10">Scandinavia</option>
+          <option value="13">Finland</option>
+          <option value="2">Western Europe</option>
+          <option value="14">United Kingdom</option>
+          <option value="3">England</option>
+          <option value="4">Wales</option>
+          <option value="5">Scotland</option>
+          <option value="6">Northern Ireland</option>
+          <option value="7">Gibraltar</option>
+          <option value="8">France</option>
+          <option value="9">Eastern Europe</option>
+          <option value="11">Poland</option>
+          <option value="12">Hungary</option>
+        </select>
+      </div>
+    </div>
+    <div class="col-md-3 criteria" >
+      <div>
+          <label>Department:</label>
+      </div>
+      <div>
+        <select class="form-control" ng-model="selections['Department']">
+          <option value="1">Corporate</option>
+          <option value="2">Executive General and Administration</option>
+          <option value="3">Inventory Management</option>
+          <option value="4">Manufacturing</option>
+          <option value="5">Quality Assurance</option>
+          <option value="6">Sales and Marketing</option>
+          <option value="7">Research and Development1</option>
+        </select>
+      </div>
+    </div>
+  
+  </div>
+  
+  <h3>Template</h3> 
+  
+  
+    
+    
+    <tm1-ui-progress tm1-ui-trigger="selections">
+    
+      <tm1-ui-progress-pending>
+      </tm1-ui-progress-pending>
+    
+      <tm1-ui-progress-ready>
+      
+        <table class="table table-striped" >
+          <tr>
+            <th style="min-width: 250px;">Account</th>
+              <th class="text-right">Jan</th>
+              <th class="text-right">Feb</th>
+              <th class="text-right">Mar</th>
+              <th class="text-right">Apr</th>
+              <th class="text-right">May</th>
+              <th class="text-right">Jun</th>
+              <th class="text-right">Jul</th>
+              <th class="text-right">Aug</th>
+              <th class="text-right">Sep</th>
+              <th class="text-right">Oct</th>
+              <th class="text-right">Nov</th>
+              <th class="text-right">Dec</th>
+          </tr>
+        
+          <tr ng-repeat="row in table.data()" ng-class="{'consol': !row.isLeaf}">
+            <td><tm1-ui-element-list-item tm1-item="row" tm1-item-display="{{row.alias}}"></tm1-ui-element-list-item></td>
+                <td ng-repeat="column in values['Period']" class="text-right">
+                  <tm1-ui-dbr 
+                      tm1-instance="dev" 
+                      tm1-cube="General Ledger" 
+                      tm1-elements="{{selections['Version']}},{{selections['Year']}},{{column.key}},{{selections['Currency']}},{{selections['Region']}},{{selections['Department']}},{{row.key}},{{selections['General Ledger Measure']}}" 
+                      tm1-data-decimal="0" ></tm1-ui-dbr>
+                </td>
+  
+          </tr>
+        </table>
+        
+        <div>
+          <div class="btn-group" role="group" >
+            <button type="button" class="btn btn-default" ng-click="table.previous()"><i class="fa fa-angle-left"></i></button>
+            <span class="btn btn-default" style="width: 70px;">{{table.page()}} of {{table.pages()}}</span>
+            <button type="button" class="btn btn-default" ng-click="table.next()"><i class="fa fa-angle-right"></i></button>
+          </div>
+          <div class="btn-group pull-right" role="group" >
+            <button type="button" class="btn btn-default" ng-class="{'active': table.isPageSize(10)}" ng-click="table.pageSize(10)">10</button>
+            <button type="button" class="btn btn-default" ng-class="{'active': table.isPageSize(20)}" ng-click="table.pageSize(20)">20</button>
+            <button type="button" class="btn btn-default" ng-class="{'active': table.isPageSize(30)}" ng-click="table.pageSize(30)">30</button>
+            <button type="button" class="btn btn-default" ng-class="{'active': table.isPageSize(50)}" ng-click="table.pageSize(50)">50</button>
+            <button type="button" class="btn btn-default" ng-class="{'active': table.isPageSize(100)}" ng-click="table.pageSize(100)">100</button>
+          </div>
+        </div>
+    
+      </tm1-ui-progress-ready>
+    
+    </tm1-ui-progress>
+  
+  </div>
+    
+
+</div>
