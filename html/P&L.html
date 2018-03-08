@@ -37,12 +37,12 @@
           </tr>
         
           <tr ng-repeat="row in table.data()" ng-class="{'consol': !row.isLeaf}">
-            <td><tm1-ui-element-list-item tm1-item="row" tm1-item-display="{{row.alias}}"></tm1-ui-element-list-item></td>
+            <th>{{row.Attributes.Description}}</th>
             <td ng-repeat="column in values['Period']" class="text-right">
               <tm1-ui-dbr 
                   tm1-instance="dev" 
                   tm1-cube="General Ledger" 
-                  tm1-elements="{{selections['Version']}},{{selections['Year']}},{{column.key}},{{selections['Currency']}},{{selections['Region']}},{{selections['Department']}},{{row.key}},Amount" 
+                  tm1-elements="{{selections['Version']}},{{selections['Year']}},{{column.key}},{{selections['Currency']}},{{selections['Region']}},{{selections['Department']}},{{row.Name}},Amount" 
                   tm1-data-decimal="0" >
               </tm1-ui-dbr>
             </td>

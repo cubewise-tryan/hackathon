@@ -2,5 +2,9 @@
   "p\u0026l": {
     "url": "/p\u0026l",
     "templateUrl": "html/P\u0026L.html"
+  },
+  "another-page": {
+    "url": "/another-page",
+    "templateUrl": "html/another-page.html"
   }
 }

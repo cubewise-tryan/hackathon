@@ -18,20 +18,7 @@
             </div>
             <div>
             <select class="form-control" ng-model="selections.Region">
-                <option value="1">Total Europe</option>
-                <option value="10">Scandinavia</option>
-                <option value="13">Finland</option>
-                <option value="2">Western Europe</option>
-                <option value="14">United Kingdom</option>
-                <option value="3">England</option>
-                <option value="4">Wales</option>
-                <option value="5">Scotland</option>
-                <option value="6">Northern Ireland</option>
-                <option value="7">Gibraltar</option>
-                <option value="8">France</option>
-                <option value="9">Eastern Europe</option>
-                <option value="11">Poland</option>
-                <option value="12">Hungary</option>
+                <option ng-repeat="item in regions" value="{{item.Name}}">{{item.Attributes.Description}}</option>
             </select>
             </div>
         </div>
@@ -41,13 +28,7 @@
             </div>
             <div>
             <select class="form-control" ng-model="selections.Department">
-                <option value="1">Corporate</option>
-                <option value="2">Executive General and Administration</option>
-                <option value="3">Inventory Management</option>
-                <option value="4">Manufacturing</option>
-                <option value="5">Quality Assurance</option>
-                <option value="6">Sales and Marketing</option>
-                <option value="7">Research and Development1</option>
+                <option ng-repeat="item in departments" value="{{item.Name}}">{{item.Attributes.Description}}</option>
             </select>
             </div>
         </div>
