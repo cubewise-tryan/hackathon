@@ -22,19 +22,12 @@ app.controller('PLCtrl', ['$scope', '$rootScope', '$tm1Ui', '$myService', functi
 
   
     // Populate the column subsets
-    $scope.values["Period"] = [];
-    $scope.values["Period"].push({key: "01", alias: "Jan", level: 0, index: 2, type: "N", isLeaf: 0 == 0});
-    $scope.values["Period"].push({key: "02", alias: "Feb", level: 0, index: 3, type: "N", isLeaf: 0 == 0});
-    $scope.values["Period"].push({key: "03", alias: "Mar", level: 0, index: 4, type: "N", isLeaf: 0 == 0});
-    $scope.values["Period"].push({key: "04", alias: "Apr", level: 0, index: 5, type: "N", isLeaf: 0 == 0});
-    $scope.values["Period"].push({key: "05", alias: "May", level: 0, index: 6, type: "N", isLeaf: 0 == 0});
-    $scope.values["Period"].push({key: "06", alias: "Jun", level: 0, index: 7, type: "N", isLeaf: 0 == 0});
-    $scope.values["Period"].push({key: "07", alias: "Jul", level: 0, index: 8, type: "N", isLeaf: 0 == 0});
-    $scope.values["Period"].push({key: "08", alias: "Aug", level: 0, index: 9, type: "N", isLeaf: 0 == 0});
-    $scope.values["Period"].push({key: "09", alias: "Sep", level: 0, index: 10, type: "N", isLeaf: 0 == 0});
-    $scope.values["Period"].push({key: "10", alias: "Oct", level: 0, index: 11, type: "N", isLeaf: 0 == 0});
-    $scope.values["Period"].push({key: "11", alias: "Nov", level: 0, index: 12, type: "N", isLeaf: 0 == 0});
-    $scope.values["Period"].push({key: "12", alias: "Dec", level: 0, index: 13, type: "N", isLeaf: 0 == 0});
+    $scope.lists.Period = [];
+    $myService.periods("dev").then(function(result){
+        _.each(result, function(item){
+            $scope.lists.Period.push(item);
+        });
+    });   
   
     // Populate the row subsets
     $scope.lists.rows = [];

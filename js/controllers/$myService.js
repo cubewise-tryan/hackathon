@@ -64,4 +64,24 @@ app.service("$myService", ["$rootScope", "$q", "$tm1Ui", function($rootScope, $q
 
     };
 
+    this.periods = function(instance){
+
+        if(!cache.instance){
+            cache[instance] = {};
+        }
+
+        if(cache.periods){
+            var defer = $q.defer();
+            defer.resolve(cache[instance].periods);
+            return defer.promise;
+        }
+        else {
+            return $tm1Ui.dimensionElements(instance, "Period", {subset: "All Months", attributes: "Description"}).then(function(result){
+                cache[instance].periods = result;
+                return result;
+            });
+        }
+
+    };
+
 }]);
