@@ -33,16 +33,16 @@
         <table class="table table-striped" >
           <tr>
             <th style="min-width: 250px;">Account</th>
-            <th class="text-right" ng-repeat="item in values['Period']">{{item.alias}}</th>
+            <th class="text-right" ng-repeat="item in lists.Period">{{item.Attributes.Description}}</th>
           </tr>
         
           <tr ng-repeat="row in table.data()" ng-class="{'consol': !row.isLeaf}">
             <th>{{row.Attributes.Description}}</th>
-            <td ng-repeat="column in values['Period']" class="text-right">
+            <td ng-repeat="column in lists.Period" class="text-right">
               <tm1-ui-dbr 
                   tm1-instance="dev" 
                   tm1-cube="General Ledger" 
-                  tm1-elements="{{selections['Version']}},{{selections['Year']}},{{column.key}},{{selections['Currency']}},{{selections['Region']}},{{selections['Department']}},{{row.Name}},Amount" 
+                  tm1-elements="{{selections['Version']}},{{selections['Year']}},{{column.Name}},{{selections['Currency']}},{{selections['Region']}},{{selections['Department']}},{{row.Name}},Amount" 
                   tm1-data-decimal="0" >
               </tm1-ui-dbr>
             </td>
