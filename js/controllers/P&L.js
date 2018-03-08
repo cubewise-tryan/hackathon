@@ -14,10 +14,12 @@ app.controller('PLCtrl', ['$scope', '$rootScope', '$tm1Ui', function($scope, $ro
     $scope.values = {};
 	   
     // Set default title values
-    $scope.selections["Version"] = "1";
-    $scope.selections["General Ledger Measure"] = "Comment";
+    $scope.selections.Year = "2012";
+    $scope.selections.Currency = "Local";
+    $scope.selections["Version"] = "Budget";
     $scope.selections["Region"] = "3";
     $scope.selections["Department"] = "2";
+
   
     // Populate the column subsets
     $scope.values["Period"] = [];
@@ -85,5 +87,6 @@ app.controller('PLCtrl', ['$scope', '$rootScope', '$tm1Ui', function($scope, $ro
     $scope.lists.rows.push({key: "8040", alias: "Curr Xchg Gain/(Loss)", level: 0, index: 93, type: "N", isLeaf: 0 == 0});
     $scope.lists.rows.push({key: "8500", alias: "Taxes", level: 0, index: 94, type: "N", isLeaf: 0 == 0});
   
-    $scope.table = $tm1Ui.tableCreate($scope, $scope.lists.rows, {preload: false});	
+    $scope.table = $tm1Ui.tableCreate($scope, $scope.lists.rows, {preload: false, pageSize: 9999999});	
+
 }]);
