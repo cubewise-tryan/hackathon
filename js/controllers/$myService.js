@@ -6,14 +6,18 @@ app.service("$myService", ["$rootScope", "$q", "$tm1Ui", function($rootScope, $q
 
     this.accounts = function(instance){
 
+        if(!cache.instance){
+            cache[instance] = {};
+        }
+
         if(cache.accounts){
             var defer = $q.defer();
-            defer.resolve(cache.accounts);
+            defer.resolve(cache[instance].accounts);
             return defer.promise;
         }
         else {
             return $tm1Ui.dimensionElements(instance, "Account", {subset: "Net Income", attributes: "Description"}).then(function(result){
-                cache.accounts = result;
+                cache[instance].accounts = result;
                 return result;
             });
         }
@@ -22,14 +26,18 @@ app.service("$myService", ["$rootScope", "$q", "$tm1Ui", function($rootScope, $q
 
     this.regions = function(instance){
 
+        if(!cache.instance){
+            cache[instance] = {};
+        }
+
         if(cache.regions){
             var defer = $q.defer();
-            defer.resolve(cache.regions);
+            defer.resolve(cache[instance].regions);
             return defer.promise;
         }
         else {
             return $tm1Ui.dimensionElements(instance, "Region", {subset: "All Countries", attributes: "Description"}).then(function(result){
-                cache.regions = result;
+                cache[instance].regions = result;
                 return result;
             });
         }
@@ -38,14 +46,18 @@ app.service("$myService", ["$rootScope", "$q", "$tm1Ui", function($rootScope, $q
 
     this.departments = function(instance){
 
+        if(!cache.instance){
+            cache[instance] = {};
+        }
+
         if(cache.departments){
             var defer = $q.defer();
-            defer.resolve(cache.departments);
+            defer.resolve(cache[instance].departments);
             return defer.promise;
         }
         else {
             return $tm1Ui.dimensionElements(instance, "Department", {subset: "Default", attributes: "Description"}).then(function(result){
-                cache.departments = result;
+                cache[instance].departments = result;
                 return result;
             });
         }
